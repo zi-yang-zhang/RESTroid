@@ -1,6 +1,8 @@
 package org.restroid.restfulAPI;
 
 import com.google.gson.Gson;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.client.methods.HttpDelete;
@@ -17,6 +19,7 @@ import java.net.URISyntaxException;
  * Created by Robert Zhang on 10/18/14.
  */
 public class InfoHandler implements BasicInfoHandler {
+    private static SimpleLog LOGGER = (SimpleLog) LogFactory.getLog(InfoHandler.class);
     private RESTConnector connector;
     private URI hostURI;
     private String infoType;
@@ -35,12 +38,12 @@ public class InfoHandler implements BasicInfoHandler {
 
     @Override
     public HttpResponse get(String ID) throws AuthenticationException, IOException {
-        return connector.setHTTPMethod(HttpGet.METHOD_NAME).authenticatedConnect(URIHelper.requestUriFormatter(infoType, ID));
+        return connector.setHTTPMethod(HttpGet.METHOD_NAME).authenticatedConnect(new URIGenerator().setRequestPath(infoType).setArguments(ID).toString());
     }
 
     @Override
     public HttpResponse getAll() throws IOException, AuthenticationException {
-        return connector.setHTTPMethod(HttpGet.METHOD_NAME).authenticatedConnect(URIHelper.requestUriFormatter(infoType, "all"));
+        return connector.setHTTPMethod(HttpGet.METHOD_NAME).authenticatedConnect(new URIGenerator().setRequestPath(infoType).toString());
     }
 
     @Override
@@ -48,7 +51,7 @@ public class InfoHandler implements BasicInfoHandler {
         HttpPost postRequest = (HttpPost) connector.setHTTPMethod(HttpPost.METHOD_NAME).getRequest();
         Gson postJson = new Gson();
         postRequest.setEntity(new StringEntity(postJson.toJson(model), ContentType.APPLICATION_JSON));
-        return connector.unauthenticatedConnect(URIHelper.requestUriFormatter(infoType, "new"));
+        return connector.unauthenticatedConnect(new URIGenerator().setRequestPath(infoType).setArguments("new").toString());
     }
 
     @Override
@@ -58,7 +61,7 @@ public class InfoHandler implements BasicInfoHandler {
 
     @Override
     public HttpResponse delete(String ID) throws IOException, AuthenticationException {
-        return connector.setHTTPMethod(HttpDelete.METHOD_NAME).authenticatedConnect(URIHelper.requestUriFormatter(infoType, ID));
+        return connector.setHTTPMethod(HttpDelete.METHOD_NAME).authenticatedConnect(new URIGenerator().setRequestPath(infoType).setArguments(ID).toString());
     }
 
 }

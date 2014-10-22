@@ -40,7 +40,7 @@ public class Test {
             try {
                 switch (reader.readLine()) {
                     case "GET":
-                        InfoHandler getHandler = new InfoHandler("user", "admin", "admin"); //This is use for GET and DELETE request
+                        InfoHandler getHandler = new InfoHandler("users", "admin", "admin"); //This is use for GET and DELETE request
 
                         try {
                             System.out.println("UserID:");
@@ -53,7 +53,7 @@ public class Test {
                         }
                         break;
                     case "GETALL":
-                        InfoHandler getAllHandler = new InfoHandler("user", "admin", "admin"); //This is use for GET and DELETE request
+                        InfoHandler getAllHandler = new InfoHandler("users", "admin", "admin"); //This is use for GET and DELETE request
                         try {
                             HttpResponse response = getAllHandler.getAll();//This is for getting all users
                             readFromResponce(response);
@@ -64,7 +64,7 @@ public class Test {
                         }
                         break;
                     case "POST":
-                        InfoHandler postHandler = new InfoHandler("user"); //This is use for POST request
+                        InfoHandler postHandler = new InfoHandler("users"); //This is use for POST request
                         try {
                             UserModel newUser = new UserModel();
                             System.out.println("UserName:");
@@ -80,7 +80,7 @@ public class Test {
                         }
                         break;
                     case "DELETE":
-                        InfoHandler deleteHandler = new InfoHandler("user", "admin", "admin"); //This is use for GET and DELETE request
+                        InfoHandler deleteHandler = new InfoHandler("users", "admin", "admin"); //This is use for GET and DELETE request
                         try {
                             System.out.println("UserID:");
                             HttpResponse response = deleteHandler.delete(reader.readLine());//This is for delete user with specific UserID
