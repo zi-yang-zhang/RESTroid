@@ -85,6 +85,8 @@ public class RESTConnector {
             this.credentials = new UsernamePasswordCredentials(username, password);
             credProvider.setCredentials(new AuthScope(host.toHostString(), host.getPort()), credentials);
             this.context = HttpClientContext.create();
+            //AuthCache authCache = new BasicAuthCache();
+            context.setCredentialsProvider(credProvider);
             return this;
         }
 

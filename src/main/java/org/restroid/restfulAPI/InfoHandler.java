@@ -1,8 +1,6 @@
 package org.restroid.restfulAPI;
 
 import com.google.gson.Gson;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.client.methods.HttpDelete;
@@ -19,7 +17,6 @@ import java.net.URISyntaxException;
  * Created by Robert Zhang on 10/18/14.
  */
 public class InfoHandler implements BasicInfoHandler {
-    private static SimpleLog LOGGER = (SimpleLog) LogFactory.getLog(InfoHandler.class);
     private RESTConnector connector;
     private URI hostURI;
     private String infoType;
